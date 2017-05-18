@@ -10,7 +10,7 @@ Fix timer
 Put everything where it really should be
 sprite animation
 clean up sprites
-Move to Arduboy2
+Move to Arduboy2 -- Done
 Fully understand the code xD
 
 
@@ -56,6 +56,8 @@ int justpressed = 0;
 int gamestate = 0;
 int hit = 0;
 
+
+
 #define MIRROR_SCREEN
 bool isPaused = false;
 
@@ -76,16 +78,15 @@ void setup() {
     tunes.initChannel(PIN_SPEAKER_1); // use the same pin for both channels
     tunes.toneMutesScore(true);       // mute the score when a tone is sounding
     #endif
-    arduboy.invert(!arduboy.audio.enabled()); // invert display if sound muted
     if (!tunes.playing())
     tunes.playScore(bootsound);
-    delay (3500);
+    delay(3500);
     arduboy.clear();
     arduboy.drawBitmap( 60, 1, AB, 39, 57, WHITE );
     arduboy.setCursor(0, 10);
     arduboy.print("FOR THE\nARDUBOY\nMAY 2017\nGAME JAM!");
     arduboy.display();
-    delay (4500);
+    delay(4500);
     #ifdef MIRROR_SCREEN;
     Serial.begin(9600);}
     #endif
@@ -103,7 +104,11 @@ void loop() {
     arduboy.drawBitmap(0, 0, title, 128, 64, WHITE);
     arduboy.setCursor(50, 56);
     arduboy.setTextSize(1);
-    arduboy.print("Press A");
+    arduboy.print("HOLD A");
+    delay(1000);
+    arduboy.invert(true);
+    delay(1000);
+    arduboy.invert(false);
       if(arduboy.pressed(A_BUTTON) and justpressed == 0) {
         justpressed = 1;
         gamestate = 1;
@@ -119,7 +124,7 @@ void loop() {
       if(arduboy.pressed(A_BUTTON) and justpressed == 0) {
         justpressed = 1;
         gamestate = 2;
-        counter = 11;
+        counter = 31;
         ;
       }
       break;    
@@ -129,13 +134,15 @@ void loop() {
     arduboy.drawBitmap( 0, 0, background, 128, 64, WHITE );
     arduboy.drawBitmap(goalx, goaly, goal, 6, 6, WHITE);
     arduboy.drawBitmap(snailx, snaily, snail, 7, 6, WHITE);
-     if (arduboy.everyXFrames(60)){
-      arduboy.setCursor(116, 0);
-      counter = counter - 1;
-      arduboy.print(counter);
-      }
-         if (counter == 0){
-     gamestate = 4;
+    
+     if (arduboy.everyXFrames(60)){      
+      counter = counter - 1;}
+      
+     arduboy.setCursor(116, 0);
+     arduboy.print(counter);
+      
+     if (counter == 0){
+       gamestate = 4;
       }
         
      if (!tunes.playing())
