@@ -55,6 +55,7 @@ int goaly = 54;
 int gamestate = 0;
 bool hit = false;
 
+bool invertScreen = false;
 
 #define MIRROR_SCREEN
 bool isPaused = false;
@@ -86,14 +87,16 @@ void setup() {
     arduboy.display();
     arduboy.delayShort(3500);
     #ifdef MIRROR_SCREEN
-    Serial.begin(9600);}
+    Serial.begin(9600);
     #endif
+}
 
 
 void loop() {
-    if(!arduboy.nextFrame()) {
+  if(!arduboy.nextFrame()) {
     return;
   }
+  arduboy.pollButtons();
   arduboy.clear();
   //Game code here
   switch( gamestate ) {
@@ -102,18 +105,21 @@ void loop() {
       arduboy.drawBitmap(0, 0, title, 128, 64, WHITE);
       arduboy.setCursor(50, 56);
       arduboy.setTextSize(1);
-      arduboy.print("HOLD A");
-      arduboy.delayShort(1000);
-      arduboy.invert(true);
-      arduboy.delayShort(1000);
-      arduboy.invert(false);
-      if(arduboy.pressed(A_BUTTON)) {
+      arduboy.print("PRESS A");
+      if(arduboy.everyXFrames(60))
+      {
+        invertScreen = !invertScreen;
+        arduboy.invert(invertScreen);
+      }
+      if(arduboy.justPressed(A_BUTTON)) {
         gamestate = 1;
+        invertScreen = false;
+        arduboy.invert(false);
       }
       break;
       case 1:
       //Intro screen
-      arduboy.clear();
+      //arduboy.clear();
       arduboy.setCursor(0, 0);
       arduboy.setTextSize(1);
       arduboy.print("WELCOME TO ARDUBOY\nSYSTEM TO PLAY:\n\n1. PRESS A TO START \n\n2. PRESS B TO PAUSE \n\nAND....  ENJOY!!!");
@@ -122,9 +128,9 @@ void loop() {
         gamestate = 2;
         counter = 31;
       }
-      break;    
+      break;
    case 2:
-    arduboy.clear();
+    //arduboy.clear();
     arduboy.drawBitmap( 0, 0, background, 128, 64, WHITE );
     arduboy.drawBitmap(goalx, goaly, goal, 6, 6, WHITE);
     arduboy.drawBitmap(snailx, snaily, snail, 7, 6, WHITE);
@@ -162,7 +168,7 @@ void loop() {
       }
       break;
    case 3:
-      arduboy.clear();
+      //arduboy.clear();
       arduboy.setCursor(14, 14);
       arduboy.print("CONGRATULATIONS\n\n       PRESS A\n\n     TO CONTINUE");
            
@@ -174,7 +180,7 @@ void loop() {
       }
       break;   
    case 4:
-      arduboy.clear();                
+      //arduboy.clear();                
       arduboy.setCursor(20,8);
       arduboy.setTextSize(3);
       arduboy.print("TIME! \nPress A");
