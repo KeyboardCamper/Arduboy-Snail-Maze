@@ -52,7 +52,6 @@ int snailx = 1;
 int snaily = 54;
 int goalx = 121;
 int goaly = 54;
-int justpressed = 0;
 int gamestate = 0;
 bool hit = false;
 
@@ -100,18 +99,16 @@ void loop() {
   switch( gamestate ) {
    case 0:
       //Intro screen
-    arduboy.drawBitmap(0, 0, title, 128, 64, WHITE);
-    arduboy.setCursor(50, 56);
-    arduboy.setTextSize(1);
-    arduboy.print("HOLD A");
-    arduboy.delayShort(1000);
-    arduboy.invert(true);
-    arduboy.delayShort(1000);
-    arduboy.invert(false);
-      if(arduboy.pressed(A_BUTTON) and justpressed == 0) {
-        justpressed = 1;
+      arduboy.drawBitmap(0, 0, title, 128, 64, WHITE);
+      arduboy.setCursor(50, 56);
+      arduboy.setTextSize(1);
+      arduboy.print("HOLD A");
+      arduboy.delayShort(1000);
+      arduboy.invert(true);
+      arduboy.delayShort(1000);
+      arduboy.invert(false);
+      if(arduboy.pressed(A_BUTTON)) {
         gamestate = 1;
-        ;
       }
       break;
       case 1:
@@ -121,11 +118,9 @@ void loop() {
       arduboy.setTextSize(1);
       arduboy.print("WELCOME TO ARDUBOY\nSYSTEM TO PLAY:\n\n1. PRESS A TO START \n\n2. PRESS B TO PAUSE \n\nAND....  ENJOY!!!");
       //Change the gamestate    
-      if(arduboy.pressed(A_BUTTON) and justpressed == 0) {
-        justpressed = 1;
+      if(arduboy.justPressed(A_BUTTON)) {
         gamestate = 2;
         counter = 31;
-        ;
       }
       break;    
    case 2:
@@ -167,30 +162,26 @@ void loop() {
       }
       break;
    case 3:
-        arduboy.clear();
-        arduboy.setCursor(14, 14);
-        arduboy.print("CONGRATULATIONS\n\n       PRESS A\n\n     TO CONTINUE");
+      arduboy.clear();
+      arduboy.setCursor(14, 14);
+      arduboy.print("CONGRATULATIONS\n\n       PRESS A\n\n     TO CONTINUE");
            
-        if(arduboy.pressed(A_BUTTON) and justpressed == 0) {
-        justpressed = 1;
+      if(arduboy.justPressed(A_BUTTON)) {
         gamestate = 1;
         snailx = 1;
         snaily = 54;
-        hit =0;
-        ;
+        hit = false;
       }
       break;   
    case 4:
-         arduboy.clear();                
-         arduboy.setCursor(20,8);
-         arduboy.setTextSize(3);
-         arduboy.print("TIME! \nPress A");
+      arduboy.clear();                
+      arduboy.setCursor(20,8);
+      arduboy.setTextSize(3);
+      arduboy.print("TIME! \nPress A");
          
-            if(arduboy.pressed(A_BUTTON) and justpressed == 0) {
-               counter = 31;
-               justpressed = 1;
-               gamestate = 1;
-               ;  
+      if(arduboy.justPressed(A_BUTTON)) {
+        gamestate = 1;
+        counter = 31;
       }
       break; 
     }
@@ -215,10 +206,6 @@ void loop() {
       if(arduboy.pressed(DOWN_BUTTON)) {
         snaily = snaily + 1;
       }
-
-  if(arduboy.notPressed(A_BUTTON)) {
-    justpressed = 0;
-   }
 #ifdef MIRROR_SCREEN
 Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
 #endif
