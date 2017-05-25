@@ -54,7 +54,7 @@ int goalx = 121;
 int goaly = 54;
 int justpressed = 0;
 int gamestate = 0;
-int hit = 0;
+bool hit = false;
 
 
 #define MIRROR_SCREEN
@@ -147,10 +147,8 @@ void loop() {
      if (!tunes.playing())
        tunes.playScore(bgm);     
 
-      if(snailx == goalx && snaily == goaly) {
-        hit = 1;
-       }
-      if(hit ==1 and justpressed == 0) {
+      hit = (snailx == goalx && snaily == goaly);
+      if(hit) {
         digitalWrite(GREEN_LED, LOW); // turn on green LED
         digitalWrite(RED_LED, HIGH);  // turn off red LED
         digitalWrite(BLUE_LED, HIGH);  // turn off blue LED
