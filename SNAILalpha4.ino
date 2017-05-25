@@ -86,7 +86,7 @@ void setup() {
     arduboy.print(" FOR THE\n ARDUBOY\n MAY 2017\n GAME JAM!");
     arduboy.display();
     arduboy.delayShort(3500);
-    #ifdef MIRROR_SCREEN;
+    #ifdef MIRROR_SCREEN
     Serial.begin(9600);}
     #endif
 
