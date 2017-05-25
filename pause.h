@@ -1,4 +1,4 @@
-#include "Arduboy.h"
+#include <Arduboy2.h>
 
 byte pause_countdown = 0;
 byte pause_countdown_set_val = 30; //default half a second 
