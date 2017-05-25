@@ -147,8 +147,7 @@ void loop() {
      if (!tunes.playing())
        tunes.playScore(bgm);     
 
-      //OMG I figured this tiny collision myself
-      if(snailx + snaily == goalx + goaly) {
+      if(snailx == goalx && snaily == goaly) {
         hit = 1;
        }
       if(hit ==1 and justpressed == 0) {
