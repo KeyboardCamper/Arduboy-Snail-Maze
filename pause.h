@@ -11,7 +11,7 @@ void setup_pause(byte countdown_var){
   pause_countdown_set_val = countdown_var;
 }
 
-bool check_pause(Arduboy& arduboy, bool isPaused){
+bool check_pause(Arduboy2& arduboy, bool isPaused){
    if(arduboy.pressed(B_BUTTON)){
     if (pause_countdown <= 0){
       if (isPaused == false){
