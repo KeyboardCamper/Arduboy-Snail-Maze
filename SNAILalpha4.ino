@@ -2,6 +2,7 @@
 I built a dirty port of the SEGA MASTERSYSTEM BIOS EASTER EGG made from examples and comments from members at community.arduboy.com
 Shouts to crait and MLXXXp without your contributions to the community I wouldnt have even got past the boot screen
 Shouts to the Arduboy Team and everyone else that contributes
+A BIG Thank You to Pharap for some optimization 
 shouts to those who I failed to mention
 And apologies for the mess in here its built from snippets and trial and error
 To Do:
