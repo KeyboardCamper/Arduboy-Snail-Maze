@@ -1,4 +1,4 @@
-#include "Arduboy.h"
+#include <Arduboy2.h>
 
 byte pause_countdown = 0;
 byte pause_countdown_set_val = 30; //default half a second 
@@ -11,7 +11,7 @@ void setup_pause(byte countdown_var){
   pause_countdown_set_val = countdown_var;
 }
 
-bool check_pause(Arduboy& arduboy, bool isPaused){
+bool check_pause(Arduboy2& arduboy, bool isPaused){
    if(arduboy.pressed(B_BUTTON)){
     if (pause_countdown <= 0){
       if (isPaused == false){
