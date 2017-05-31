@@ -43,7 +43,6 @@ Fully understand the code xD
 #include <ArduboyPlaytune.h>
 #include "bitmaps.h"
 #include "BGM.h"
-#include "pause.h"
 
 Arduboy2 arduboy;
 ArduboyPlaytune tunes(arduboy.audio.enabled);
